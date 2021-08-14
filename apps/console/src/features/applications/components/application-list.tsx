@@ -30,9 +30,9 @@ import {
     AnimatedAvatar,
     AppAvatar,
     ConfirmationModal,
-    ContentLoader,
     DataTable,
     EmptyPlaceholder,
+    GridLayout,
     LinkButton,
     PrimaryButton,
     TableActionsInterface,
@@ -42,7 +42,7 @@ import {
 import React, { FunctionComponent, ReactElement, ReactNode, SyntheticEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Header, Icon, Label, SemanticICONS } from "semantic-ui-react";
+import { Header, Icon, Label, SemanticICONS } from "semantic-ui-react";
 import {
     AppConstants,
     AppState,
@@ -445,8 +445,11 @@ export const ApplicationList: FunctionComponent<ApplicationListPropsInterface> =
         return null;
     };
 
-    return (!(isLoading || isApplicationTemplateRequestLoading)? (
-        <>
+    return (
+        <GridLayout
+            showTopActionPanel={ false }
+            isLoading={ (isLoading || isApplicationTemplateRequestLoading) }
+        >
             <DataTable<ApplicationListItemInterface>
                 className="applications-table"
                 externalSearch={ advancedSearch }
@@ -508,11 +511,7 @@ export const ApplicationList: FunctionComponent<ApplicationListPropsInterface> =
                     </ConfirmationModal>
                 )
             }
-        </>
-    ) :
-        <Container>
-            <ContentLoader inline="centered" active/>
-        </Container> 
+        </GridLayout>
     );
 };
 
